@@ -6,8 +6,13 @@ const USERS_URL = 'https://jsonplaceholder.typicode.com/users';
 const initialState = []
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-    const response = await axios.get(USERS_URL);
-    return response.data
+    try {
+        const response = await axios.get(USERS_URL);
+        // console.log("HHHHHHHHHHHHHHHHHHHHHHH" + response.data)
+        return response.data;
+    } catch (error) {
+        return error.message;
+    }
 })
 
 const usersSlice = createSlice({
@@ -15,9 +20,11 @@ const usersSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(fetchUsers.fulfilled, (state, action) => {
-            return action.payload;
-        })
+        builder
+            .addCase(fetchUsers.fulfilled, (state, action) => {
+                // console.log("Hellooooooooooooooooooooooooooooooooooo" + action.payload)
+                return action.payload
+            })
     }
 })
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 import { selectPostById } from './postsSlice'
 
@@ -25,9 +25,12 @@ const SinglePostPage = () => {
         <section>
             <article className="post">
                 <h2>{post.title}</h2>
-                <PostAuthor userId={post.user} />
-                <TimeAgo timestamp={post.date} />
-                <p className="post-content">{post.content}</p>
+                <p className="post-content">{post.body}</p>
+                <p className='postCredit'>
+                    <Link to={`/posts/edit/${post.id}`} className='button muted-button'>Edit Post</Link>
+                    <PostAuthor userId={post.userId} />
+                    <TimeAgo timestamp={post.date} />
+                </p>
                 <ReactionButtons post={post} />
             </article>
         </section>
